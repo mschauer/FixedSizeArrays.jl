@@ -260,21 +260,21 @@ end
 
 context("Constructors") do
     context("FixedVector: unary, from FixedVector") do
-        @fact typeof(Vec3f(1,1,1))     --> Vec{3, Float32}
-        @fact typeof(Vec3f(1,1f0,1))   --> Vec{3, Float32}
-        @fact typeof(Vec3f(1f0,1,1.0)) --> Vec{3, Float32}
-        @fact eltype(Vec3f(1f0,1,1.0)) --> Float32
+        @fact typeof(Vec3f(1,1,1))      --> Vec{3, Float32}
+        @fact typeof(Vec3f(1,1f0,1))    --> Vec{3, Float32}
+        @fact typeof(Vec3f(1f0,1,1.0))  --> Vec{3, Float32}
+        @fact eltype(Vec3f(1f0,1,1.0))  --> Float32
 
-        @fact typeof(Vec3f(1))      --> Vec{3, Float32}
-        @fact typeof(Vec3f(0))      --> Vec{3, Float32}
-        @fact Vec3f(1.0)             --> Vec(1f0,1f0,1f0)
-        @fact Vec3f(1.0f0)             --> Vec(1f0,1f0,1f0)
-        @fact Vec3f(1.0f0)             --> Vec3f(1)
-        @fact Vec(1.0, 1.0, 1.0)     --> Vec3d(1)
-        @fact Vec2d(Vec3d(1))         --> Vec(1.0, 1.0)
-        @fact Vec(Vec3d(1), 1.0)     --> Vec4d(1)
-        @fact Vec(Vec3d(1), 1)         --> Vec4d(1)
-        @fact Vec3d(Vec3f(1.0))     --> Vec3d(1.0)
+        @fact typeof(Vec3f(1))          --> Vec{3, Float32}
+        @fact typeof(Vec3f(0))          --> Vec{3, Float32}
+        @fact Vec3f(1.0)                --> Vec(1f0,1f0,1f0)
+        @fact Vec3f(1.0f0)              --> Vec(1f0,1f0,1f0)
+        @fact Vec3f(1.0f0)              --> Vec3f(1)
+        @fact Vec(1.0, 1.0, 1.0)        --> Vec3d(1)
+        @fact Vec2d(Vec3d(1))           --> Vec(1.0, 1.0)
+        @fact Vec(Vec3d(1), 1.0)        --> Vec4d(1)
+        @fact Vec(Vec3d(1), 1)          --> Vec4d(1)
+        @fact Vec3d(Vec3f(1.0))         --> Vec3d(1.0)
     end
 end
 
@@ -514,22 +514,22 @@ context("Ops") do
         @fact @inferred((2.0 .^ v1)) --> Vec3d(2.0,4.0,8.0)
         @fact @inferred((2 .^ v1)) --> Vec3d(2.0,4.0,8.0)
 
-                a = Vec(3.2f0)
-                @fact @inferred(a+0.2) --> Vec1d(3.2f0+0.2)
-                @fact @inferred(0.2+a) --> Vec1d(3.2f0+0.2)
-                @fact @inferred(a*0.2) --> Vec1d(3.2f0*0.2)
-                @fact @inferred(0.2*a) --> Vec1d(3.2f0*0.2)
-                @fact @inferred(a+0.2f0) --> Vec{1,Float32}(3.4f0)
-                @fact @inferred(0.2f0+a) --> Vec{1,Float32}(3.4f0)
-                @fact @inferred(a*0.2f0) --> Vec{1,Float32}(3.2f0*0.2f0)
-                @fact @inferred(0.2f0*a) --> Vec{1,Float32}(3.2f0*0.2f0)
+        a = Vec(3.2f0)
+        @fact @inferred(a+0.2) --> Vec1d(3.2f0+0.2)
+        @fact @inferred(0.2+a) --> Vec1d(3.2f0+0.2)
+        @fact @inferred(a*0.2) --> Vec1d(3.2f0*0.2)
+        @fact @inferred(0.2*a) --> Vec1d(3.2f0*0.2)
+        @fact @inferred(a+0.2f0) --> Vec{1,Float32}(3.4f0)
+        @fact @inferred(0.2f0+a) --> Vec{1,Float32}(3.4f0)
+        @fact @inferred(a*0.2f0) --> Vec{1,Float32}(3.2f0*0.2f0)
+        @fact @inferred(0.2f0*a) --> Vec{1,Float32}(3.2f0*0.2f0)
     end
     context("vector norm+cross product") do
         @fact norm(Vec3d(1.0,2.0,2.0)) --> 3.0
 
         # cross product
         @fact cross(v1,v2) --> Vec3d(-7.0,14.0,-7.0)
-        @fact isa(cross(v1,v2),Vec3d)  --> true
+        @fact isa(cross(v1,v2),Vec3d) --> true
     end
 
     context("hypot") do
@@ -573,9 +573,9 @@ end
 
 # type conversion
 context("Conversion 2") do
-    @fact isa(convert(Vec3f,v1), Vec3f)  --> true
+    @fact isa(convert(Vec3f,v1), Vec3f) --> true
 
-    @fact isa(convert(Vector{Float64}, v1), Vector{Float64})  --> true
+    @fact isa(convert(Vector{Float64}, v1), Vector{Float64}) --> true
     @fact convert(Vector{Float64}, v1) --> [1.0,2.0,3.0]
 end
 
@@ -597,9 +597,9 @@ for T in [UInt, Int, Float32, Float64]
                 @fact convert(Vec{N,T}, tup...) --> Vec{N,T}(tup...) "Vec{$N,$T} from vararg"
                 @fact convert(Vec{N,T}, tup)    --> Vec{N,T}(tup...) "Vec{$N,$T} from tuple"
                 @fact convert(Vec{N,T}, arr)    --> Vec{N,T}(tup...) "Vec{$N,$T} from array"
-                @fact convert(Vec, tup...) --> Vec{N,T}(tup...) "Vec from vararg"
-                @fact convert(Vec, tup)    --> Vec{N,T}(tup...) "Vec from tuple"
-                @fact convert(Vec, arr)    --> Vec{N,T}(tup...) "Vec from array"
+                @fact convert(Vec, tup...)      --> Vec{N,T}(tup...) "Vec from vararg"
+                @fact convert(Vec, tup)         --> Vec{N,T}(tup...) "Vec from tuple"
+                @fact convert(Vec, arr)         --> Vec{N,T}(tup...) "Vec from array"
             end
         end
 
@@ -707,10 +707,10 @@ context("Matrix") do
         @fact jm[i] --> im[i]
     end
     #im = Matrix4x4(jm)
-    @fact isa(im, Mat4d)  --> true
+    @fact isa(im, Mat4d) --> true
 
     jm2 = convert(Array{Float64,2}, im)
-    @fact isa(jm2, Array{Float64,2})  --> true
+    @fact isa(jm2, Array{Float64,2}) --> true
     @fact jm --> jm2
 
     #Single valued constructor
@@ -740,11 +740,11 @@ context("Matrix Math") do
 
         context("Matrix{$i, $j} * Vector{$j}") do
             vm = m * v
-            @fact isapprox(@inferred(mfs * vfs), vm)  --> true
+            @fact isapprox(@inferred(mfs * vfs), vm) --> true
         end
         context("Matrix{$i, $j} * Matrix{$j, $i}") do
                 mm = m * m2
-                @fact isapprox(@inferred(mfs * m2fs), mm)  --> true
+                @fact isapprox(@inferred(mfs * m2fs), mm) --> true
         end
 
         if i == j
@@ -752,31 +752,31 @@ context("Matrix Math") do
             context("det(M)") do
                 mm = det(m)
                 fmm = det(mfs)
-                @fact isapprox(fmm, mm)  --> true
+                @fact isapprox(fmm, mm) --> true
             end
             context("trace(M)") do
                     mm = trace(m)
                     fmm = trace(mfs)
-                    @fact isapprox(fmm, mm)  --> true
+                    @fact isapprox(fmm, mm) --> true
             end
             context("inv(M)") do
                 mm = inv(m)
                 fmm = inv(mfs)
-                @fact isapprox(fmm, mm)  --> true
+                @fact isapprox(fmm, mm) --> true
             end
             context("expm(M)") do
                 mm = expm(m)
                 fmm = expm(mfs)
-                @fact isapprox(fmm, mm)  --> true
+                @fact isapprox(fmm, mm) --> true
 
                 mm = expm(mc)
                 fmm = expm(mfsc)
-                @fact isapprox(fmm, mm)  --> true
+                @fact isapprox(fmm, mm) --> true
             end
             context("lyap(M,M2*M2')") do
                 mm = lyap(m, m2*m2')
                 fmm = lyap(mfs, m2fs*m2fs')
-                @fact isapprox(fmm, mm)  --> true
+                @fact isapprox(fmm, mm) --> true
             end
 
         else
@@ -788,30 +788,30 @@ context("Matrix Math") do
         context("transpose M") do
             mm = m'
             fmm = mfs'
-            @fact isapprox(fmm, mm)  --> true
+            @fact isapprox(fmm, mm) --> true
         end
 
         context("ctranspose M") do
             mm = mc'
             fmm = mfsc'
-            @fact isapprox(fmm, mm)  --> true
+            @fact isapprox(fmm, mm) --> true
         end
     end
     context("expm(M::Mat{3,3,Float64})") do
         # in practice the precision is eps(), if m has not a triple eigenvalue
         for i in 1:30
             m = (rand(0:1,3,3).*randn(3,3) .+ rand(-3:3,3,3)) # some entries are natural numbers to have higher chance of multiple eigenvalues to trigger all branches
-            @fact norm(Matrix(expm(Mat(m))) -  expm(m))/norm(expm(m)) <= 1E-9 --> true
+            @fact norm(Matrix(expm(Mat(m))) - expm(m))/norm(expm(m)) <= 1E-9 --> true
             m = m + m' # symmetric
-            @fact norm(Matrix(expm(Mat(m))) -  expm(m))/norm(expm(m)) <= 1E-9 --> true
+            @fact norm(Matrix(expm(Mat(m))) - expm(m))/norm(expm(m)) <= 1E-9 --> true
             m = 1. *rand(-1:1,3,3) # eigenvalues equal with high probability to test worse case
-            @fact norm(Matrix(expm(Mat(m))) -  expm(m))/norm(expm(m)) <= 1E-9 --> true
+            @fact norm(Matrix(expm(Mat(m))) - expm(m))/norm(expm(m)) <= 1E-9 --> true
             m = m + m'
-            @fact norm(Matrix(expm(Mat(m))) -  expm(m))/norm(expm(m)) <= 1E-9 --> true
+            @fact norm(Matrix(expm(Mat(m))) - expm(m))/norm(expm(m)) <= 1E-9 --> true
         end
     end
     context("expm(M::Mat{3,3, BigFloat})") do
-        @fact norm(Matrix(expm(Mat(big([0.0 0.0 1.0; -1.0 1.0 0.0; -1.0 0.0 2.0])))) - big([-0.0 0.0  1.0; -0.5  1.0  -0.5; -1.0  0.0  2.0])*e,1) <  10eps(big(1.)) --> true
+        @fact norm(Matrix(expm(Mat(big([0.0 0.0 1.0; -1.0 1.0 0.0; -1.0 0.0 2.0])))) - big([-0.0 0.0 1.0; -0.5 1.0 -0.5; -1.0 0.0 2.0])*e,1) < 10eps(big(1.)) --> true
     end
 end
 
@@ -861,22 +861,22 @@ end
 
 context("Vector Math") do
     context("all") do
-        @fact isapprox(acfs, ac)  --> true
-        @fact isapprox(bcfs, bc)  --> true
+        @fact isapprox(acfs, ac)    --> true
+        @fact isapprox(bcfs, bc)    --> true
 
-        @fact isapprox(afs, a) --> true
-        @fact isapprox(bfs, b) --> true
-        @fact isapprox(cfs, c) --> true
+        @fact isapprox(afs, a)      --> true
+        @fact isapprox(bfs, b)      --> true
+        @fact isapprox(cfs, c)      --> true
 
-        @fact isapprox(dfs, d) --> true
-        @fact isapprox(d2fs, d2) --> true
-        @fact isapprox(ffs, f) --> true
-        @fact isapprox(gfs, g) --> true
-        @fact isapprox(hfs, h) --> true
-        @fact isapprox(ifs, i) --> true
-        @fact isapprox(jfs, j) --> true
-        @fact isapprox(kfs, k) --> true
-        @fact isapprox(lfs, l) --> true
+        @fact isapprox(dfs, d)      --> true
+        @fact isapprox(d2fs, d2)    --> true
+        @fact isapprox(ffs, f)      --> true
+        @fact isapprox(gfs, g)      --> true
+        @fact isapprox(hfs, h)      --> true
+        @fact isapprox(ifs, i)      --> true
+        @fact isapprox(jfs, j)      --> true
+        @fact isapprox(kfs, k)      --> true
+        @fact isapprox(lfs, l)      --> true
     end
 end
 
