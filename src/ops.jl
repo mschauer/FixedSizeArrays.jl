@@ -220,6 +220,13 @@ end
     )
 end
 
+lyap{T}(a::Mat{1, 1, T}, c::Mat{1, 1, T}) = Mat{1,1,T}(c[1,1]/2a[1,1])
+function lyap{T}(a::Mat{2, 2, T}, c::Mat{2, 2, T}) 
+    d = det(a)
+    t = trace(a)
+    (a*c  + (a - t*I)*c*(a-t*I)')/(2*t*d) # http://www.nber.org/papers/w8956.pdf
+end
+lyap{m,T}(a::Mat{m,m,T},c::Mat{m,m,T}) = Mat(lyap(Matrix(a),Matrix(c)))
 
 # Matrix
 (*){T, M, N, O, K}(a::FixedMatrix{M, N, T}, b::FixedMatrix{O, K, T}) = throw(DimensionMismatch("$N != $O in $(typeof(a)) and $(typeof(b))"))
